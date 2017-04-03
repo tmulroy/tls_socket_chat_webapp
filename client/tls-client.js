@@ -1,38 +1,38 @@
 'use strict';
 
-const port = 8000;
+const port = 443;
 const hostname = 'localhost';
 
 const tls = require('tls');
-var fs = require('fs');
+const fs = require('fs');
 
 const options = {
-  host: hostname,
   port: port,
-
-  // Necessary only if using the client certificate authentication
-  key: fs.readFileSync('certs/client/client.key'),
-  cert: fs.readFileSync('certs/client/client.crt'),
-
-  // Necessary only if the server uses the self-signed certificate
-  ca: fs.readFileSync('certs/ca/ca.crt')
+  host: hostname,
+  readable: true,
+  writable: true,
+  key: fs.readFileSync('./certificate/client.key'),
+  cert: fs.readFileSync('./certificate/client.crt'),
+  ca: fs.readFileSync('../certificate_authority/ca.crt')
 };
 
-var socket = tls.connect(options, () => {
-  console.log('client connected',
-              socket.authorized ? 'authorized' : 'unauthorized');
+const socket = tls.connect(options, () => {
+  console.log('\nclient connected',
+              socket.authorized ? 'is authorized' : 'is unauthorized');
   process.stdin.pipe(socket);
   process.stdin.resume();
+  process.stdout
+  console.log(`\nAddress: ${socket.address().address}`);
+  console.log(`Port: ${socket.address().port}`);
+  console.log(`Family: ${socket.address().family}\n`);
+});
 
-  socket.end();
-})
+socket.setEncoding('utf8');
 
-.setEncoding('utf8')
-
-.on('data', (data) => {
+socket.on('data', (data) => {
   console.log(data);
-})
+});
 
-.on('end', () => {
+socket.on('end', () => {
   console.log("End connection");
 });
