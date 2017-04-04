@@ -9,8 +9,6 @@ const fs = require('fs');
 const options = {
   port: port,
   host: hostname,
-  readable: true,
-  writable: true,
   key: fs.readFileSync('./certificate/client.key'),
   cert: fs.readFileSync('./certificate/client.crt'),
   ca: fs.readFileSync('../certificate_authority/ca.crt')
