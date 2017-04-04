@@ -1,16 +1,15 @@
 'use strict';
 
-const port = 443;
-const hostname = 'localhost';
+const tls = require('tls'),
+      fs = require('fs'),
+      port = 443,
+      hostname = 'localhost',
+      ipVersion = 6;
 
-const tls = require('tls');
-const fs = require('fs');
-
-// requestOCSP: true,
 const options = {
   port: port,
   host: hostname,
-  family: 6,
+  family: ipVersion,
   key: fs.readFileSync('./certificate/client.key'),
   cert: fs.readFileSync('./certificate/client.crt'),
   ca: fs.readFileSync('../certificate_authority/ca.crt')

@@ -1,8 +1,8 @@
 'use strict';
 
-const tls = require('tls');
-const fs = require('fs');
-const port = 443;
+const tls = require('tls'),
+      fs = require('fs'),
+      port = 443;
 
 const options = {
     key: fs.readFileSync('./certificate/server.key'),
@@ -12,7 +12,7 @@ const options = {
     rejectUnauthorized: false
 };
 
-let server = tls.createServer(options, (socket) => {
+const server = tls.createServer(options, (socket) => {
   socket.write('Welcome!\n');
   socket.setEncoding('utf8');
   socket.pipe(socket);
@@ -22,14 +22,12 @@ let server = tls.createServer(options, (socket) => {
   console.log(`Protocol: ${socket.getProtocol()}`);
 });
 
-
 server.on('secureConnection', (socket) => {
-	console.log('secure connection; client authorized: ', socket.authorized);
+	console.log(`secure connection; client authorized: , ${socket.authorized}`);
   socket.on('data', (data) => {
     console.log(`Client: ${data}`)
   });
 });
-
 
 server.listen(port, () => {
 	console.log(`Server listening on port ${port} \n`);
