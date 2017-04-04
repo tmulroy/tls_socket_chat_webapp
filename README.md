@@ -11,6 +11,7 @@ Todo:
 Resources:
 * [Node.js TLS docs](https://nodejs.org/api/tls.html#tls_class_tls_tlssocket)
 * [Node.js net.Socket docs](https://nodejs.org/api/net.html#net_class_net_socket)
+* [Self-Signed Certificates](http://ceejbot.tumblr.com/post/39969163196/using-client-certs-in-nodejs)
 
 
  
