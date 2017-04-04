@@ -1,4 +1,4 @@
-# tls_socket_chat_webapp
+# TLS Socket Client/Server Chat
 ## An extremely basic tls socket chat webapp. Uses node.js tls class and socket class. 
 ## This won't work if you clone it.. you have to create your own keys, certificates, etc.
 
