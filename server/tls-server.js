@@ -13,7 +13,7 @@ const options = {
 };
 
 let server = tls.createServer(options, (socket) => {
-  socket.write('Server: welcome!\n');
+  socket.write('Welcome!\n');
   socket.setEncoding('utf8');
   socket.pipe(socket);
   // redirect stdin to the socket (allows user to type in shell)

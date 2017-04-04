@@ -6,9 +6,11 @@ const hostname = 'localhost';
 const tls = require('tls');
 const fs = require('fs');
 
+// requestOCSP: true,
 const options = {
   port: port,
   host: hostname,
+  family: 6,
   key: fs.readFileSync('./certificate/client.key'),
   cert: fs.readFileSync('./certificate/client.crt'),
   ca: fs.readFileSync('../certificate_authority/ca.crt')
@@ -28,8 +30,13 @@ const socket = tls.connect(options, () => {
 socket.setEncoding('utf8');
 
 // need to fix, if client writes to socket, it outputs to client stdout
+
 socket.on('data', (data) => {
   console.log(`Server: ${data}`);
+});
+
+socket.on('error', (err) => {
+  console.log(`Error: ${err}`);
 });
 
 socket.on('end', () => {
